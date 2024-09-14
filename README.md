@@ -21,6 +21,9 @@ FinPet was developed using a combination of technologies that helped us balance 
 - **Backend:** The financial data is handled and stored using **Node.js** and **MongoDB**, ensuring a seamless user experience with fast data updates.
 - **Virtual Pet Logic:** We implemented a point and reward system where users earn points based on how well they manage their finances. These points are used to keep their virtual pet happy and healthy.
 - **Gamification Elements:** Badges, levels, and daily challenges were added to make the process more engaging and rewarding.
+- **Dashboard**: Track your expenses, savings goals, and virtual pet's status.
+- **Buy Digital Items**: Use earned points to purchase digital items and improve your pet's environment.
+- **Connect with Friends**: Share your pet with friends, track expenses together, and compete to save the most.
   
 ## 🌱 Challenges we ran into 🌱
 
