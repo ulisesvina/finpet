@@ -1,5 +1,4 @@
 # FinPet 🐾💸
-
 ## 💡 Inspiration 💡
 
 Managing personal finances can be stressful and often feels like a chore. Many people struggle with tracking expenses, budgeting, and staying on top of their financial goals. Our team wanted to find a way to make this process more engaging and rewarding. That’s when we came up with **FinPet**—a personal finance app that gamifies financial organization by allowing users to earn points for keeping their finances on track and care for a virtual pet. By combining finance and fun, we hope to build better financial habits in a way that feels enjoyable rather than overwhelming!
