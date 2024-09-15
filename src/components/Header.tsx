@@ -31,12 +31,20 @@ const Header = ({ session }: { session: string | null }) => {
                         <div className="hidden md:flex">
                             <nav className="text-lg">
                                 <ul className="flex space-x-5">
-                                    <li>
-                                        <button className="hover:underline" onClick={handleSignIn}>Get Started</button>
-                                    </li>
-                                    <li>
-                                        <button className="hover:underline" onClick={handleSignOut}>Sign Out</button>
-                                    </li>
+                                    {userSessionId ? (
+                                        <>
+                                            <li>
+                                                <Link className="hover:underline" href="/dashboard">Dashboard</Link>
+                                            </li>
+                                            <li>
+                                                <button className="hover:underline" onClick={handleSignOut}>Sign out</button>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <li>
+                                            <button className="hover:underline" onClick={handleSignIn}>Sign in</button>
+                                        </li>
+                                    )}
                                 </ul>
                             </nav>
                         </div>
