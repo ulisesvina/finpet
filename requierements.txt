@@ -2,3 +2,4 @@ Flask
 firebase-admin
 pymongo
 requests
+g wrangler
