@@ -33,18 +33,23 @@ export async function signInWithGoogle() {
 
       alert("User added to firestore");
 
-      await fetch(`${process.env.BACKEND_URL}/add_user`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: result.user.displayName,
-          email: result.user.email,
-        }),
-      });
+      try {
+        const response = await fetch(`${process.env.BACKEND_URL}/add_user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: result.user.displayName,
+            email: result.user.email,
+          }),
+        });
+        alert("User added to backend");
 
-      alert("User added to backend");
+        alert("Response from backend:" + JSON.stringify(response));
+      } catch (error) {
+        alert("Error adding user to backend:" + error);
+      }
     }
 
     return result.user.uid;
