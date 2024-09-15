@@ -14,10 +14,6 @@
   }
 }
 
-html {
-  font-family: -system-ui, var(--font-montserrat), sans-serif;
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
@@ -27,8 +23,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-.old {
-  font-family: var(--font-fraunces);
 }
