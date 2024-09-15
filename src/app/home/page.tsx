@@ -47,43 +47,44 @@ const HomePage = () => {
         <>
           {mounted ? (
             <>
-              {missingFields?.missing && (
+              {missingFields?.missing ? (
                 <div>
-                  <h2 className="text-4xl">Missing Fields</h2>
+                  <h2 className="text-4xl font-bold">Missing Fields</h2>
                   <ul>
                     {missingFields.fields?.bankId && <li>Bank ID</li>}
                     {missingFields.fields?.occupation && <li>Occupation</li>}
                     {missingFields.fields?.salary && <li>Salary</li>}
                   </ul>
                 </div>
+              ) : (
+                <div className="flex gap-4 ">
+                  <PieChart width={200} height={200}>
+                    <Pie
+                      data={data}
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {data.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-sm">Saldo en cuenta:</span>
+                    <Ticker value="4,567,890 MXN" className="text-4xl font-bold" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-sm">Score Financiero:</span>
+                    <GaugeChart size={150} progress={20} gap={4} showValue />
+                  </div>
+                </div>
               )}
-              <div className="flex gap-4 ">
-                <PieChart width={200} height={200}>
-                  <Pie
-                    data={data}
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {data.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm">Saldo en cuenta:</span>
-                  <Ticker value="4,567,890 MXN" className="text-4xl font-bold" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm">Score Financiero:</span>
-                  <GaugeChart size={150} progress={20} gap={4} showValue />
-                </div>
-              </div>
             </>
           ) : (
             <p>Loading chart...</p>
