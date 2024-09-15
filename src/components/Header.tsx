@@ -6,19 +6,19 @@ import { signInWithGoogle, signOutWithGoogle } from "@/libs/firebase/auth";
 import Link from "next/link";
 
 const Header = ({ session }: { session: string | null }) => {
-    const userSessionId = useUserSession(session);
+  const userSessionId = useUserSession(session);
 
-    const handleSignIn = async () => {
-        const userUid = await signInWithGoogle();
-        if (userUid) {
-            await createSession(userUid);
-        }
-    };
+  const handleSignIn = async () => {
+    const userUid = await signInWithGoogle();
+    if (userUid) {
+      await createSession(userUid);
+    }
+  };
 
-    const handleSignOut = async () => {
-        await signOutWithGoogle();
-        await removeSession();
-    };
+  const handleSignOut = async () => {
+    await signOutWithGoogle();
+    await removeSession();
+  };
 
     return (
         <div className={"visible opacity-100 mb-32 transition-opacity duration-500 ease-in-out"}>
@@ -52,7 +52,9 @@ const Header = ({ session }: { session: string | null }) => {
                 </div>
             </header>
         </div>
-    );
+      </header>
+    </div>
+  );
 };
 
 export default Header;
