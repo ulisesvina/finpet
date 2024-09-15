@@ -6,7 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # DATASET STUFF
-file_path = r'ai\datasetai.csv'
+file_path = r'db\datasetai.csv'
 data = pd.read_csv(file_path)
 
 def preprocess_data(df):

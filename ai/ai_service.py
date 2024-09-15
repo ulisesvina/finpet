@@ -2,13 +2,13 @@ import requests
 import pandas as pd
 import random
 from cfmodels import service_model
-from keys import *
+from .keys import *
 
 # DATASET STUFF
-file_path = r'datasetai.csv'
+file_path = 'db/users_db.csv'
 data = pd.read_csv(file_path)
 
-#MODEL
+#MODEL  
 API_BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{count_id}/ai/run/"
 def run(model, inputs):
     headers = {"Authorization": workers_key}
@@ -30,11 +30,10 @@ name = (str(input("Name: ")))
 
 my_prompt = f'You decided, based on the salary mensual, Job,the bills,Description, and how % of the salary is going into JOB or Hobbies (and any other important things) IF the buy was good or bad. JUST SAY "GOOD" or "BAD"'
 data = data.to_dict(orient='records')
-
+print(data)
 
 inputs = [
     { "role": "system", "content": f"{my_prompt}" },
     { "role": "user", "content": f"{data}" }
 ]
-
 output = run(service_model, inputs)
