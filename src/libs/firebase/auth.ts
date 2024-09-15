@@ -40,6 +40,10 @@ export async function signInWithGoogle() {
           result.user.email || "",
           result.user.photoURL || ""
         );
+
+        if (!response) {
+          throw new Error("Error adding user to database");
+        }
       } catch (error) {
         console.error("Error adding user to database", error);
       }

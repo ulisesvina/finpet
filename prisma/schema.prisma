@@ -8,15 +8,21 @@ datasource db {
 }
 
 model User {
-  uuid     String  @id @default(auto()) @map("_id") @db.ObjectId
-  id       String  @unique
-  name     String
-  email    String  @unique
-  photoURL String?
-  pet      Pet? 
-  petId    String? @db.ObjectId
-  score    Int     @default(0)
-  balance  Int     @default(0)
+  uuid            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id              String    @unique
+  bankId          String?   @unique
+  name            String
+  email           String    @unique
+  photoURL        String?
+  pet             Pet?
+  occupation      String?
+  hobbies         String?
+  salary          Int?
+  usedMoney       Int       @default(0)
+  petId           String?   @db.ObjectId
+  score           Int       @default(0)
+  balance         Int       @default(0)
+  lastProcessedAt DateTime?
 }
 
 model Pet {

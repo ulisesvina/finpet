@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import Image from 'next/image';
 import Snow from "@/assets/snow.png";
+import Rewards from "@/assets/rewards.svg";
 
 const Home = () => {
   const data = [
@@ -70,6 +71,7 @@ const Home = () => {
               <h3 className="text-2xl font-bold">
                 Get rewards for saving money 🎉
               </h3>
+              <Image src={Rewards} alt="Rewards" width={200} height={200} className='mt-5'/>
             </div>
           </div>
         </div>

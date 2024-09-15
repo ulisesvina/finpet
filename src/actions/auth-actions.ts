@@ -59,7 +59,24 @@ export async function getUserByCookie() {
     },
   });
 
-  console.log(user);
-
   return user;
 }
+
+export const checkMissingUserFields = async () => {
+  const user = await getUserByCookie();
+
+  if (!user?.bankId || !user?.occupation || !user?.salary) {
+    return {
+      missing: true,
+      fields: {
+        bankId: !user?.bankId,
+        occupation: !user?.occupation,
+        salary: !user?.salary,
+      },
+    };
+  }
+
+  return {
+    missing: false,
+  };
+};
