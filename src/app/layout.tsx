@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import Header from "@/components/Header";
 import { SESSION_COOKIE_NAME } from "@/constants";
+import { AuthProvider } from "@/context/AuthProvider";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -35,10 +36,12 @@ export default function RootLayout({
       <body
         className={`antialiased text-gray-900 bg-white dark:bg-black dark:text-white ${montserrat.className} ${fraunces.variable}`}
       >
-        <Header session={session} />
-        <main className="max-w-screen-lg mx-auto p-4">
-          {children}
-        </main>
+        <AuthProvider session={session}>
+          <Header />
+          <main className="max-w-screen-lg mx-auto p-4">
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

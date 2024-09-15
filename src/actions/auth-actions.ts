@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import prisma from "@/libs/prisma";
 
 import { HOME_ROUTE, ROOT_ROUTE, SESSION_COOKIE_NAME } from "@/constants";
 
@@ -21,3 +22,61 @@ export async function removeSession() {
 
   redirect(ROOT_ROUTE);
 }
+
+export async function addUserToDatabase(
+  id: string,
+  name: string,
+  email: string,
+  photoURL: string
+) {
+  try {
+    await prisma.user.create({
+      data: {
+        id,
+        name,
+        email,
+        photoURL,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error adding user to database", error);
+    return false;
+  }
+}
+
+export async function getUserByCookie() {
+  const id = cookies().get(SESSION_COOKIE_NAME)?.value;
+
+  if (!id) {
+    return null;
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  return user;
+}
+
+export const checkMissingUserFields = async () => {
+  const user = await getUserByCookie();
+
+  if (!user?.bankId || !user?.occupation || !user?.salary) {
+    return {
+      missing: true,
+      fields: {
+        bankId: !user?.bankId,
+        occupation: !user?.occupation,
+        salary: !user?.salary,
+      },
+    };
+  }
+
+  return {
+    missing: false,
+  };
+};
