@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Montserrat } from "next/font/google"
+import { Fraunces, Montserrat } from "next/font/google";
 import "@/styles/globals.css";
+import { cookies } from "next/headers";
 
 import Header from "@/components/Header";
+import { SESSION_COOKIE_NAME } from "@/constants";
 
-
-export const montserrat = Montserrat({
+const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
   display: "swap",
 });
 
-export const fraunces = Fraunces({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
   display: "swap",
@@ -27,10 +28,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = cookies().get(SESSION_COOKIE_NAME)?.value || null;
+
   return (
     <html lang="en">
-      <body className={`antialiased text-gray-900 bg-white dark:bg-black dark:text-white ${montserrat.className} ${fraunces.variable}`}>
-        <Header />
+      <body
+        className={`antialiased text-gray-900 bg-white dark:bg-black dark:text-white ${montserrat.className} ${fraunces.variable}`}
+      >
+        <Header session={session} />
         {children}
       </body>
     </html>
