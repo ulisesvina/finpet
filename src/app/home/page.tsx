@@ -1,5 +1,6 @@
 "use client";
 
+import GaugeChart from "@/components/ui/gauge-chart";
 import Ticker from "@/components/ui/ticker";
 import { useEffect, useState } from "react";
 import { Tooltip, PieChart, Pie, Cell } from "recharts";
@@ -41,7 +42,11 @@ const HomePage = () => {
           </PieChart>
           <div className="flex flex-col gap-2">
             <span className="text-sm">Saldo en cuenta:</span>
-            <Ticker value="1234567890" className="text-4xl font-bold" />
+            <Ticker value="4,567,890 MXN" className="text-4xl font-bold" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-sm">Score Financiero:</span>
+            <GaugeChart size={150} progress={20} gap={4} showValue />
           </div>
         </div>
       ) : (
