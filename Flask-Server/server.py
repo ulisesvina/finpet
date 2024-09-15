@@ -88,6 +88,24 @@ def delete_user(userid):
     users_collection.delete_one({'_id': userid})
     return jsonify({"message": "User deleted"}), 200
 
+from flask_cors import CORS
+
+def create_app(test_config=None ):
+
+    app = Flask(__name__)
+
+    app.config.from_object('config')  # Import things from config
+
+    CORS(app)
+
+    # CORS Headers 
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+        return response
+
+
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
