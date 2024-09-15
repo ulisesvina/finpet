@@ -36,7 +36,9 @@ export default function RootLayout({
         className={`antialiased text-gray-900 bg-white dark:bg-black dark:text-white ${montserrat.className} ${fraunces.variable}`}
       >
         <Header session={session} />
-        {children}
+        <main className="max-w-screen-lg mx-auto p-4">
+          {children}
+        </main>
       </body>
     </html>
   );
