@@ -13,7 +13,7 @@ model User {
   email    String  @unique
   photoURL String?
   pet      Pet?
-  petId    String? // This can stay as is, but ensure correct logic when assigning
+  petId    String? @db.ObjectId
   score    Int     @default(0)
   balance  Int     @default(0)
 }
@@ -24,5 +24,5 @@ model Pet {
   asset         Int
   owner         User   @relation(fields: [userId], references: [id])
   accessoryWorn Int?
-  userId        String @unique @db.ObjectId // Use ObjectId here as well
+  userId        String @unique @db.ObjectId
 }

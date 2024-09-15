@@ -45,3 +45,17 @@ export async function addUserToDatabase(
     return false;
   }
 }
+
+export async function getUserByCookie() {
+  const uid = cookies().get(SESSION_COOKIE_NAME)?.value;
+
+  if (!uid) {
+    return null;
+  }
+
+  return await prisma.user.findUnique({
+    where: {
+      id: uid,
+    },
+  });
+}

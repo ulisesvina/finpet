@@ -31,7 +31,7 @@ const Home = () => {
           <button className="bg-primary text-white p-2 rounded w-full md:w-1/4">Get Started</button>
           <button className="border border-primary p-2 rounded w-full md:w-1/4">Learn More</button>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-10">
           <h2 className="text-4xl font-bold font-old">How it works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-3">
             <div className="flex flex-col items-center p-5">
