@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String  @unique
+  photoURL String?
+  pet      Pet?
+  petId    String? // This can stay as is, but ensure correct logic when assigning
+  score    Int     @default(0)
+  balance  Int     @default(0)
+}
+
+model Pet {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  asset         Int
+  owner         User   @relation(fields: [userId], references: [id])
+  accessoryWorn Int?
+  userId        String @unique @db.ObjectId // Use ObjectId here as well
+}

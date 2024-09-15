@@ -8,6 +8,8 @@ import {
 import { db, firebaseAuth } from "./config";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
+import { addUserToDatabase } from "@/actions/auth-actions";
+
 export function onAuthStateChanged(callback: (authUser: User | null) => void) {
   return _onAuthStateChanged(firebaseAuth, callback);
 }
@@ -23,34 +25,31 @@ export async function signInWithGoogle() {
     }
 
     const docSnap = await getDoc(doc(db, "users", result.user.uid));
-    if (!docSnap.exists()) {
-      await setDoc(doc(db, "users", result.user.uid), {
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL,
-      });
+    /* if (!docSnap.exists()) { */
+    await setDoc(doc(db, "users", result.user.uid), {
+      uid: result.user.uid,
+      email: result.user.email,
+      displayName: result.user.displayName,
+      photoURL: result.user.photoURL,
+    });
 
-      alert("User added to firestore");
+    alert("User added to firestore");
 
-      try {
-        const response = await fetch(`${process.env.BACKEND_URL}/add_user`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: result.user.displayName,
-            email: result.user.email,
-          }),
-        });
-        alert("User added to backend");
+    try {
+      const response = await addUserToDatabase(
+        result.user.uid,
+        result.user.displayName || "",
+        result.user.email || "",
+        result.user.photoURL || ""
+      );
+      
+      alert("User added to backend");
 
-        alert("Response from backend:" + JSON.stringify(response));
-      } catch (error) {
-        alert("Error adding user to backend:" + error);
-      }
+      alert("Response from backend:" + JSON.stringify(response));
+    } catch (error) {
+      alert("Error adding user to backend:" + error);
     }
+    /*     } */
 
     return result.user.uid;
   } catch (error) {
