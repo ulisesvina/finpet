@@ -49,7 +49,7 @@ const HomePage = () => {
             <>
               {missingFields?.missing ? (
                 <div>
-                  <h2 className="text-4xl font-bold">Missing Fields</h2>
+                  <h2 className="text-4xl">Missing Fields</h2>
                   <ul>
                     {missingFields.fields?.bankId && <li>Bank ID</li>}
                     {missingFields.fields?.occupation && <li>Occupation</li>}
