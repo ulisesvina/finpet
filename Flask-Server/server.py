@@ -22,15 +22,13 @@ users_collection = db['users']
 @app.route('/add_user', methods=['POST'])
 def add_user():
     data = request.json
-    username = data['username']
+    name = data['name']
     email = data['email']
-    password = data['password']
 
     user_data = {
 
-        'username': username,
-        'email': email,
-        'password': password
+        'name': name,
+        'email': email
     }
 
     # Insert user data into MongoDB
@@ -38,10 +36,10 @@ def add_user():
     return jsonify({"message": "User added successfully"}), 200
 
 # Get user data
-@app.route('/get_user', methods=['GET'])
-def get_user():
+@app.route('/get_user/<id>', methods=['GET'])
+def get_user(id):
     # Retrieve user data from MongoDB
-    user = users_collection.find_one({'username': 'janedoe'})
+    user = users_collection.find_one({'_id': id})
     if user:
         return jsonify(user), 200
     else:
@@ -110,3 +108,14 @@ if __name__ == '__main__':
 #     print("Pinged your deployment. You successfully connected to MongoDB!")
 # except Exception as e:
 #     print(e)
+
+# curl -X POST http://localhost:5000/add_user \
+# -H "Content-Type: application/json" \
+# -d '{"username": "john_doe", "email": "john.doe@example.com", "password": "securePassword123"}'
+
+# curl -X PATCH http://localhost:5000/update_pet_experience \
+# -H "Content-Type: application/json" \
+# -d '{"_id": "your_pet_id", "exp": 10}'
+
+
+# curl -X GET http://localhost:5000/get_user/your_user_id
