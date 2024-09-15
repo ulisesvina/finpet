@@ -1,16 +1,12 @@
 "use client";
 
 import { createSession, removeSession } from "@/actions/auth-actions";
-import { useUserSession } from "@/hooks/use-user-session";
-import { useEffect, useState } from "react";
 import { signInWithGoogle, signOutWithGoogle } from "@/libs/firebase/auth";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthProvider";
 
-import { getUserByCookie } from "@/actions/auth-actions";
-
-const Header = ({ session }: { session: string | null }) => {
-    const [user, setUser] = useState<{ id: string; name: string; email: string; photoURL: string | null; petId: string | null; score: number; balance: number; } | null>(null);
-    const userSessionId = useUserSession(session);
+const Header = () => {
+    const { user } = useAuth();
 
     const handleSignIn = async () => {
         const userUid = await signInWithGoogle();
@@ -23,15 +19,6 @@ const Header = ({ session }: { session: string | null }) => {
         await signOutWithGoogle();
         await removeSession();
     };
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const user = await getUserByCookie();
-            setUser(user);
-        }
-
-        fetchUser();
-    }, [userSessionId]);
 
     return (
         <div
@@ -51,7 +38,7 @@ const Header = ({ session }: { session: string | null }) => {
                         <div className="hidden md:flex">
                             <nav className="text-lg">
                                 <ul className="flex space-x-5">
-                                    {userSessionId ? (
+                                    {user ? (
                                         <>
                                             <li>
                                                 <Link className="hover:underline" href="/dashboard">
@@ -65,7 +52,6 @@ const Header = ({ session }: { session: string | null }) => {
                                                 >
                                                     Sign out
                                                 </button>
-                                                {user?.name}
                                             </li>
                                         </>
                                     ) : (

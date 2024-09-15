@@ -33,8 +33,6 @@ export async function signInWithGoogle() {
         photoURL: result.user.photoURL,
       });
 
-      alert("User added to firestore");
-
       try {
         const response = await addUserToDatabase(
           result.user.uid,
@@ -42,12 +40,8 @@ export async function signInWithGoogle() {
           result.user.email || "",
           result.user.photoURL || ""
         );
-
-        alert("User added to backend");
-
-        alert("Response from backend:" + JSON.stringify(response));
       } catch (error) {
-        alert("Error adding user to backend:" + error);
+        console.error("Error adding user to database", error);
       }
     }
     return result.user.uid;

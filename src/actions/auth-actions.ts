@@ -36,26 +36,30 @@ export async function addUserToDatabase(
         name,
         email,
         photoURL,
-        petId: "",
       },
     });
 
     return true;
   } catch (error) {
+    console.error("Error adding user to database", error);
     return false;
   }
 }
 
 export async function getUserByCookie() {
-  const uid = cookies().get(SESSION_COOKIE_NAME)?.value;
+  const id = cookies().get(SESSION_COOKIE_NAME)?.value;
 
-  if (!uid) {
+  if (!id) {
     return null;
   }
 
-  return await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
-      id: uid,
+      id,
     },
   });
+
+  console.log(user);
+
+  return user;
 }

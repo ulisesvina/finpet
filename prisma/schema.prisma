@@ -8,21 +8,23 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  uuid     String  @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @unique
   name     String
   email    String  @unique
   photoURL String?
-  pet      Pet?
+  pet      Pet? 
   petId    String? @db.ObjectId
   score    Int     @default(0)
   balance  Int     @default(0)
 }
 
 model Pet {
-  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  uuid          String @id @default(auto()) @map("_id") @db.ObjectId
+  id            String @unique
   name          String
   asset         Int
-  owner         User   @relation(fields: [userId], references: [id])
+  owner         User   @relation(fields: [userId], references: [uuid])
   accessoryWorn Int?
   userId        String @unique @db.ObjectId
 }
