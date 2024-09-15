@@ -26,10 +26,8 @@ def fav_saying(personality, data):
     return random.choice(phrase)
 
 #MODEL
-
 pet_model = "@hf/mistral/mistral-7b-instruct-v0.2"
 API_BASE_URL = f"https://api.cloudflare.com/client/v4/accounts/{count_id}/ai/run/"
-headers = {"Authorization": workers_key}
 
 def run(model, inputs):
     headers = {"Authorization": workers_key}
@@ -55,8 +53,6 @@ name = (str(input("Name: ")))
 match = find_personality(user_pet, preprocessed_data)
 fav_phrase = fav_saying(match, preprocessed_data)
 user_pet = user_pet + fav_phrase
-
-print(fav_phrase)
 
 my_prompt = f"Act as if you are the pet with the personality: {match}. Your name is {name}. Do not mention that you are an AI or that you are not real. Simply respond as if youve just been born. Keep your response within 30 tokens and complete your sentence."
 
